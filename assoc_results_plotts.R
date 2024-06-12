@@ -437,6 +437,7 @@ QQ_plot = function(p_values, col=((min(length(p_values), ncol(p_values)))), main
   return( invisible(lambda_values) )
 }
 
+#Save the data
 p_vals<-data$P
 png(file= output_for_qq,
     width=900, height=600)
