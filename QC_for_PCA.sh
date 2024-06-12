@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#now that we have done the high ld zones prunning me will continue to do a General QC for PCA
+#now that we have removed the high ld zones, we will continue to perform a General QC for PCA
 
 ### Next lines specify the parameters to be used in the QC for PCA
 geno=0.1
