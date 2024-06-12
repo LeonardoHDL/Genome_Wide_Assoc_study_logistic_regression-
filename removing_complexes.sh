@@ -1,15 +1,23 @@
-#bin/bash
+#bin/bash!
 
 
-#These module is meant to remove genomic complexes of human genomic structure
-#these modules can alter results in a assoc study or a PCA
-#for the firs step we are creating a specific directory to place all the new outputfiles from 
-#the first QC which is removing high ld zones reported in:
+#This module is meant to remove genomic complexes from the human genomic structure
+#these modules can alter results in a assoc study or in a PCA
+
+
+#for the first step we are creating a specific directory to place all the new outputfiles from 
+#the first QC which is removing high ld or MHC complexes zones reported in:
+#   https://genome.sph.umich.edu/wiki/Regions_of_high_linkage_disequilibrium_(LD)
 mkdir ${outdirectory}${todays_date}_QC_for_pca
 mkdir ${outdirectory}${todays_date}_QC_for_pca/Removed_complexes
 
+#directory where this process will be stored
 directory_for_hild_prunning=${outdirectory}${todays_date}_QC_for_pca/Removed_complexes/
+
+#Output file from the first plink step below
 set_of_high_ld_regions=${directory_for_hild_prunning}hild_set
+
+#You can download this file in the link reported above
 reported_high_ld_zones_file=${path_to_extrafiles}high_ld_regions.txt
 output_file_removed_high_ld_regions=${outdirectory}${todays_date}_QC_for_pca/Removed_complexes/${todays_date}_removed_hild_complexes
 
