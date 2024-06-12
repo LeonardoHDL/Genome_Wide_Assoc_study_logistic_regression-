@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-#what is next is to obtain pca values to be used as covars and also to plott PCA
+#what is next is to obtain PCA values to be used as covariates and also to plott PCA pairs
 #we will use plink software to do this
 #we will use the output from the previous step as input for this step
 
@@ -30,24 +30,32 @@ plink --bfile ${input_files_for_PCA} --pca 10 --out ${output_values_of_PCA}
 module unload plink/1.9
 echo "PCA completed, results are in ${output_values_of_PCA}"
 
-#Now that we have obtained our values for PCA we will graph them to check for
-#abnormalities or unexpected data organization
+#Now that we have obtained our values for PCA we will plot them to check for
+#abnormalities or unexpected data distribution
 #in order to do this we must have an external file called:
 #plotting_pca.py
 
 #these file require 4 input arguments in the following order (besides filename)
-#1.A file.eigenvec with the first 10 columns
-#2.Separete clinical file with matching column to .eigenvec file. This file will be used to
-#the plott target. This file muts be named clinical.csv and in format csv
-#3.A file.eigenval with just the 1 column
-#4.The output directory to place png files of PCA and the final covar file
-#which will be used in the Assoc study
-plotting_file_python=${path_to_extrafiles}plotting_pca.py
-eigenvectors_to_plot=${outdirectory}${todays_date}_PCA/${todays_date}_PCA_values_after_QC.eigenvec
-eigenvals_to_plot=${outdirectory}${todays_date}_PCA/${todays_date}_PCA_values_after_QC.eigenval
-clinical_file=${path_to_extrafiles}clinical.csv
 
-#we well create a new directory to allocate our PCA plotts(this folder in)
+    #1.A file.eigenvec with the first 10 columns
+
+    #2.Separete clinical file with an ID matching column to .eigenvec file. This file will be used to
+    #the plott target. This file muts be named clinical.csv
+
+    #3.A file.eigenval with just the 1 column provided by plink
+
+    #4.The output directory to place png files of PCA and the final covar file
+    #which will be used in the Assoc study
+
+#Path to the python script to plot PCA
+plotting_file_python=${path_to_extrafiles}plotting_pca.py
+#1
+eigenvectors_to_plot=${outdirectory}${todays_date}_PCA/${todays_date}_PCA_values_after_QC.eigenvec
+#2
+clinical_file=${path_to_extrafiles}clinical.csv
+#3
+eigenvals_to_plot=${outdirectory}${todays_date}_PCA/${todays_date}_PCA_values_after_QC.eigenval
+#4
 PCA_images__and_files_output_location=${outdirectory}${todays_date}_PCA/
 
 
@@ -66,12 +74,4 @@ module unload python38/3.8.3
 
 echo "A pheno.txt and covarfile.txt files were created in ${PCA_images__and_files_output_location}"
 echo "PCA images were created in ${PCA_images__and_files_output_location}"
-
-#the files created by pca (eigenvec and eigenval files) have no header, an this header is necessary 
-#so that the file can be used for covariates
-
-#comment if you made the python script run
-#sed  -i '1i FID IID PAT MAT SEX PHENOTYPE' ${output_values_of_PCA}.eigenvec
-
-
 echo "PCA completed"
