@@ -1,6 +1,6 @@
 #!/bin/bash
 
-
+#First we will check if the parameters were imputed, if not then we will set them to default values
 if [ -z "$geno" ]; #geno is the parameter for missingness per SNP
 then
     geno=0.1
